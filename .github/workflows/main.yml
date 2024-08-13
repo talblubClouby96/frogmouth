@@ -36,4 +36,4 @@ jobs:
         if: always()
         with:
           name: screenshots-${{ matrix.os }}-${{ matrix.python-version }}
-          path: path/to/screenshots/
+          path: ./
