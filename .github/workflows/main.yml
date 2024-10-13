@@ -2,7 +2,7 @@ name: Selenium Tests
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run every hour
+    - cron: '0 */4 * * *' # Run every hour
   workflow_dispatch:
 
 jobs:
@@ -24,12 +24,25 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      # - name: Install dependencies
+      #   run: |
+      #     pip install selenium chromedriver_autoinstaller
       - name: Install dependencies
         run: |
-          pip install selenium chromedriver_autoinstaller
+          sudo apt-get update -y
+          sudo apt-get install -y wget unzip
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f -y
+  
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium
+          pip install chromedriver-autoinstaller
+          pip install webdriver-manager
 
       - name: Run Selenium script
-        run: python my_selenium.py
+        run: python youtube_bot_stream.py
 
       - name: Archive screenshots
         uses: actions/upload-artifact@v4
