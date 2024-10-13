@@ -1,8 +1,8 @@
 name: Selenium Tests
 
 on:
-  schedule:
-    - cron: '0 */4 * * *' # Run every hour
+  # schedule:
+    # - cron: '0 */4 * * *' # Run every hour
   workflow_dispatch:
 
 jobs:
